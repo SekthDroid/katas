@@ -17,21 +17,21 @@ class FizzBuzzTest extends PHPUnit_Framework_TestCase
     }
 
     public function testMultiplesOfThreeReturnFizz () {
-        $this->assertEquals($this->fizzBuzz->run(3), FizzBuzz::FIZZ);
-        $this->assertEquals($this->fizzBuzz->run(9), FizzBuzz::FIZZ);
-        $this->assertEquals($this->fizzBuzz->run(123), FizzBuzz::FIZZ);
+        $this->assertEquals($this->fizzBuzz->run(3), 'fizz');
+        $this->assertEquals($this->fizzBuzz->run(9), 'fizz');
+        $this->assertEquals($this->fizzBuzz->run(123), 'fizz');
     }
 
     public function testMultiplesOfFiveReturnBuzz () {
-        $this->assertEquals($this->fizzBuzz->run(5), FizzBuzz::BUZZ);
-        $this->assertEquals($this->fizzBuzz->run(20), FizzBuzz::BUZZ);
-        $this->assertEquals($this->fizzBuzz->run(200), FizzBuzz::BUZZ);
+        $this->assertEquals($this->fizzBuzz->run(5), 'buzz');
+        $this->assertEquals($this->fizzBuzz->run(20), 'buzz');
+        $this->assertEquals($this->fizzBuzz->run(200), 'buzz');
     }
 
     public function testMultiplesOfThreeAndFiveReturnFizzBuzz () {
-        $this->assertEquals($this->fizzBuzz->run(15), FizzBuzz::FIZZBUZZ);
-        $this->assertEquals($this->fizzBuzz->run(45), FizzBuzz::FIZZBUZZ);
-        $this->assertEquals($this->fizzBuzz->run(315), FizzBuzz::FIZZBUZZ);
+        $this->assertEquals($this->fizzBuzz->run(15), 'fizzbuzz');
+        $this->assertEquals($this->fizzBuzz->run(45), 'fizzbuzz');
+        $this->assertEquals($this->fizzBuzz->run(315), 'fizzbuzz');
     }
 
 }
