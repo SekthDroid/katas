@@ -4,17 +4,20 @@ class FizzBuzz {
     const BUZZ = 'buzz';
     const FIZZBUZZ = 'fizzbuzz';
 
+    private static $cases = array(
+        15=> self::FIZZBUZZ,
+        5 => self::BUZZ,
+        3 => self::FIZZ,
+    );
+
     public function run($number) {
         $response = $number;
-        
-        if($number % 3 === 0) {
-            $response = self::FIZZ;
-        }
-        if($number % 5 === 0) {
-            $response = self::BUZZ;
-        }
-        if(($number % 3 === 0) and ($number % 5 === 0)) {
-            $response = self::FIZZBUZZ;
+
+        foreach (self::$cases as $case => $message) {
+            if($number % $case === 0) {
+                $response = $message;
+                break;
+            } 
         }
 
         return $response;
