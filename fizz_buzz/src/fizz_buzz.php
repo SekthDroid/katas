@@ -1,22 +1,20 @@
 <?php
+
 class FizzBuzz {
 
     private $cases = array(
-        15  => 'fizzbuzz',
-        5   => 'buzz',
         3   => 'fizz',
+        5   => 'buzz',
+        7   => 'pop',
     );
 
     public function run($number) {
-        $response = $number;
-
+        $response = '';
         foreach ($this->cases as $case => $message) {
             if($number % $case === 0) {
-                $response = $message;
-                break;
+                $response .= $message;
             }
         }
-
-        return $response;
+        return $response ?: $number;
     }
 }
