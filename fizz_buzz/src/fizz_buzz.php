@@ -22,7 +22,7 @@ class FizzBuzz {
         return $response ?: $number;
     }
 
-    public function set_variation(array $variation)
+    public function setVariation(array $variation)
     {
         foreach ($variation as $key => $value) {
             $this->cases[$key] = $value;    

@@ -63,7 +63,7 @@ class FizzBuzzTest extends PHPUnit_Framework_TestCase
 
     public function testUsingACustomSubstitution () {
         $message = 'fuzz';
-        $this->fizzBuzz->set_variation(array(2 => $message));
+        $this->fizzBuzz->setVariation(array(2 => $message));
 
         $this->assertEquals($this->fizzBuzz->run(1), 1);
         $this->assertEquals($this->fizzBuzz->run(2), $message);
@@ -74,8 +74,8 @@ class FizzBuzzTest extends PHPUnit_Framework_TestCase
         $messageFuzz = 'fuzz';
         $messageBizz = 'bizz';
 
-        $this->fizzBuzz->set_variation(array(2 => $messageFuzz));
-        $this->fizzBuzz->set_variation(array(3 => $messageBizz));
+        $this->fizzBuzz->setVariation(array(2 => $messageFuzz));
+        $this->fizzBuzz->setVariation(array(3 => $messageBizz));
         
         $this->assertEquals($this->fizzBuzz->run(4), $messageFuzz);
         $this->assertEquals($this->fizzBuzz->run(9), $messageBizz);
