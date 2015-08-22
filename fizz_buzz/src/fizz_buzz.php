@@ -2,10 +2,14 @@
 
 class FizzBuzz {
 
+    const FIZZ = 'fizz';
+    const BUZZ = 'buzz';
+    const POP = 'pop';
+
     private $cases = array(
-        3   => 'fizz',
-        5   => 'buzz',
-        7   => 'pop',
+        3   => self::FIZZ,
+        5   => self::BUZZ,
+        7   => self::POP,
     );
 
     public function run($number) {
@@ -16,5 +20,13 @@ class FizzBuzz {
             }
         }
         return $response ?: $number;
+    }
+
+    public function set_variation(array $variation)
+    {
+        foreach ($variation as $key => $value) {
+            $this->cases[$key] = $value;    
+        }
+        ksort($this->cases);
     }
 }

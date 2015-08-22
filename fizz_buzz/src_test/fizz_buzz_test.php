@@ -4,10 +4,6 @@ require_once('../src/fizz_buzz.php');
 
 class FizzBuzzTest extends PHPUnit_Framework_TestCase
 {
-    const FIZZ = 'fizz';
-    const BUZZ = 'buzz';
-    const POP = 'pop';
-
     private $fizzBuzz;
 
     public function __construct () {
@@ -21,44 +17,68 @@ class FizzBuzzTest extends PHPUnit_Framework_TestCase
     }
 
     public function testMultiplesOfThreeReturnFizz () {
-        $this->assertEquals($this->fizzBuzz->run(3), self::FIZZ);
-        $this->assertEquals($this->fizzBuzz->run(9), self::FIZZ);
-        $this->assertEquals($this->fizzBuzz->run(123), self::FIZZ);
+        $this->assertEquals($this->fizzBuzz->run(3), FizzBuzz::FIZZ);
+        $this->assertEquals($this->fizzBuzz->run(9), FizzBuzz::FIZZ);
+        $this->assertEquals($this->fizzBuzz->run(123), FizzBuzz::FIZZ);
     }
 
     public function testMultiplesOfFiveReturnBuzz () {
-        $this->assertEquals($this->fizzBuzz->run(5), self::BUZZ);
-        $this->assertEquals($this->fizzBuzz->run(20), self::BUZZ);
-        $this->assertEquals($this->fizzBuzz->run(200), self::BUZZ);
+        $this->assertEquals($this->fizzBuzz->run(5), FizzBuzz::BUZZ);
+        $this->assertEquals($this->fizzBuzz->run(20), FizzBuzz::BUZZ);
+        $this->assertEquals($this->fizzBuzz->run(200), FizzBuzz::BUZZ);
     }
 
     public function testMultiplesOfThreeAndFiveReturnFizzBuzz () {
-        $this->assertEquals($this->fizzBuzz->run(15), self::FIZZ.self::BUZZ);
-        $this->assertEquals($this->fizzBuzz->run(45), self::FIZZ.self::BUZZ);
+        $message = FizzBuzz::FIZZ.FizzBuzz::BUZZ;
+        $this->assertEquals($this->fizzBuzz->run(15), $message);
+        $this->assertEquals($this->fizzBuzz->run(45), $message);
     }
 
     public function testMultiplesOfSevenReturnPop () {
-        $this->assertEquals($this->fizzBuzz->run(7), self::POP);
-        $this->assertEquals($this->fizzBuzz->run(28), self::POP);
-        $this->assertEquals($this->fizzBuzz->run(77), self::POP);
+        $this->assertEquals($this->fizzBuzz->run(7), FizzBuzz::POP);
+        $this->assertEquals($this->fizzBuzz->run(28), FizzBuzz::POP);
+        $this->assertEquals($this->fizzBuzz->run(77), FizzBuzz::POP);
     }
 
     public function testMultiplesOfThreeAndSevenReturnFizzPop () {
-        $this->assertEquals($this->fizzBuzz->run(21), self::FIZZ.self::POP);
-        $this->assertEquals($this->fizzBuzz->run(63), self::FIZZ.self::POP);
-        $this->assertEquals($this->fizzBuzz->run(126), self::FIZZ.self::POP);
+        $message = FizzBuzz::FIZZ.FizzBuzz::POP;
+        $this->assertEquals($this->fizzBuzz->run(21), $message);
+        $this->assertEquals($this->fizzBuzz->run(63), $message);
+        $this->assertEquals($this->fizzBuzz->run(126), $message);
     }
 
     public function testMultiplesOfFiveAndSevenReturnBuzzPop () {
-        $this->assertEquals($this->fizzBuzz->run(35), self::BUZZ.self::POP);
-        $this->assertEquals($this->fizzBuzz->run(70), self::BUZZ.self::POP);
-        $this->assertEquals($this->fizzBuzz->run(140), self::BUZZ.self::POP);
+        $message = FizzBuzz::BUZZ.FizzBuzz::POP;
+        $this->assertEquals($this->fizzBuzz->run(35), $message);
+        $this->assertEquals($this->fizzBuzz->run(70), $message);
+        $this->assertEquals($this->fizzBuzz->run(140), $message);
     }
 
-    public function MultiplesOfThreeFiveAndSevenReturnFizzBuzzPop () {
-        $this->assertEquals($this->fizzBuzz->run(105), self::FIZZ.self::BUZZ.self::POP);
-        $this->assertEquals($this->fizzBuzz->run(210), self::FIZZ.self::BUZZ.self::POP);
-        $this->assertEquals($this->fizzBuzz->run(315), self::FIZZ.self::BUZZ.self::POP);
+    public function testMultiplesOfThreeFiveAndSevenReturnFizzBuzzPop () {
+        $message = FizzBuzz::FIZZ.FizzBuzz::BUZZ.FizzBuzz::POP;
+        $this->assertEquals($this->fizzBuzz->run(105), $message);
+        $this->assertEquals($this->fizzBuzz->run(210), $message);
+        $this->assertEquals($this->fizzBuzz->run(315), $message);
     }
 
+    public function testUsingACustomSubstitution () {
+        $message = 'fuzz';
+        $this->fizzBuzz->set_variation(array(2 => $message));
+
+        $this->assertEquals($this->fizzBuzz->run(1), 1);
+        $this->assertEquals($this->fizzBuzz->run(2), $message);
+        $this->assertEquals($this->fizzBuzz->run(8), $message);
+    }
+
+    public function testLinkingCustomSubstitutionsTogether () {
+        $messageFuzz = 'fuzz';
+        $messageBizz = 'bizz';
+
+        $this->fizzBuzz->set_variation(array(2 => $messageFuzz));
+        $this->fizzBuzz->set_variation(array(3 => $messageBizz));
+        
+        $this->assertEquals($this->fizzBuzz->run(4), $messageFuzz);
+        $this->assertEquals($this->fizzBuzz->run(9), $messageBizz);
+        $this->assertEquals($this->fizzBuzz->run(12), $messageFuzz.$messageBizz);
+    }
 }
