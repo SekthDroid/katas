@@ -1,0 +1,3 @@
+Instructions :
+
+http://agilekatas.co.uk/katas/BerlinClock-Kata
