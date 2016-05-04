@@ -3,5 +3,13 @@
 namespace brhmms\katas;
 
 class StringCalculator {
-    //put your code here
+    
+    public function add(string $string) {
+        $numbers = explode(',', $string);
+        $sum = 0;
+        foreach ($numbers as $number) {
+            $sum += $number;
+        }
+        return $sum;
+    }
 }
