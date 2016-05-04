@@ -1,6 +1,8 @@
 <?php
 
-require_once('../src/fizz_buzz.php');
+include '../fizz_buzz/fizz_buzz.php';
+
+use brhmms\katas\FizzBuzz as FizzBuzz;
 
 class FizzBuzzTest extends PHPUnit_Framework_TestCase
 {
