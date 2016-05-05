@@ -3,13 +3,45 @@
 namespace brhmms\katas;
 
 class StringCalculator {
-    
+
     public function add(string $string) {
-        $numbers = explode(',', $string);
-        $sum = 0;
-        foreach ($numbers as $number) {
-            $sum += $number;
+        $delimiter = $this->extractDefaultDelimiter($string);
+        $pattern = '#[(\\\\n)(.*)' . $delimiter . ']#';
+        $numbers = preg_split($pattern, $string);
+        list($sum, $negatives) = $this->processListOf($numbers);
+        if (!empty($negatives)) {
+            $message = 'Negatives not allowed: ' . implode(',', $negatives);
+            throw new \InvalidArgumentException($message);
         }
         return $sum;
     }
+
+    public function extractDefaultDelimiter($string) {
+        $delimiter = ',';
+        preg_match("#(\/\/)(.*)(\\\\n)(.*)#", $string, $matches);
+        if (!empty($matches) && $matches[1] == '//') {
+            $delimiter = str_replace(
+                array('[', ']'), 
+                array('(', ')'), 
+                $matches[2]
+            );
+        }
+        return $delimiter;
+    }
+
+    public function processListOf($numbers) {
+        $sum = 0;
+        $negatives = [];
+        foreach ($numbers as $number) {
+            if ($number > 1000) {
+                continue;
+            }
+            if ($number < 0) {
+                $negatives[] = $number;
+            }
+            $sum += is_numeric($number) ? $number : 0;
+        }
+        return array($sum, $negatives);
+    }
+
 }
