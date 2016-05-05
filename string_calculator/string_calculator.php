@@ -8,12 +8,7 @@ class StringCalculator {
         $delimiter = $this->extractDefaultDelimiter($string);
         $pattern = '#[(\\\\n)(.*)' . $delimiter . ']#';
         $numbers = preg_split($pattern, $string);
-        list($sum, $negatives) = $this->processListOf($numbers);
-        if (!empty($negatives)) {
-            $message = 'Negatives not allowed: ' . implode(',', $negatives);
-            throw new \InvalidArgumentException($message);
-        }
-        return $sum;
+        return $this->processListOf($numbers);
     }
 
     public function extractDefaultDelimiter($string) {
@@ -21,9 +16,7 @@ class StringCalculator {
         preg_match("#(\/\/)(.*)(\\\\n)(.*)#", $string, $matches);
         if (!empty($matches) && $matches[1] == '//') {
             $delimiter = str_replace(
-                array('[', ']'), 
-                array('(', ')'), 
-                $matches[2]
+                    array('[', ']'), array('(', ')'), $matches[2]
             );
         }
         return $delimiter;
@@ -41,7 +34,11 @@ class StringCalculator {
             }
             $sum += is_numeric($number) ? $number : 0;
         }
-        return array($sum, $negatives);
+        if (!empty($negatives)) {
+            $message = 'Negatives not allowed: ' . implode(',', $negatives);
+            throw new \InvalidArgumentException($message);
+        }
+        return $sum;
     }
 
 }
